@@ -1,0 +1,19 @@
+# List of protected branches (add more if needed)
+protected_branches=("main" "dev")
+
+# Read each ref being pushed
+while read local_ref local_sha remote_ref remote_sha; do
+  # Extract branch name from remote ref
+  remote_branch=$(echo "$remote_ref" | sed 's|refs/heads/||')
+
+  # Check if the remote branch is protected
+  if printf '%s\n' "${protected_branches[@]}" | grep -qx "$remote_branch"; then
+    echo "🚫 Push to protected branch '$remote_branch' is forbidden!"
+    echo "➤ Recommended workflow:"
+    echo "   1. Push to 'dev' or a feature branch"
+    echo "   2. Create a Pull Request to merge into '$remote_branch'"
+    exit 1
+  fi
+done
+
+npm run lint
