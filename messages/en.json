@@ -1,6 +1,6 @@
 {
   "HOME_PAGE": {
-    "title": "Hello world!"
+    "TITLE": "Hello!"
   },
   "LOCALE_SWITCHER": {
     "SELECTOR_TITLE": "Select language"
