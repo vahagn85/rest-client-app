@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Providers } from '../components/providers';
 import getRequestConfig from '../i18n/request';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,7 +37,9 @@ export default async function RootLayout({
       >
         <Providers locale={locale} messages={messages ?? {}}>
           <div className="container mx-auto">
+            <Header />
             <main>{children}</main>
+            <Footer />
           </div>
         </Providers>
       </body>
