@@ -1,5 +1,5 @@
 # List of protected branches (add more if needed)
-protected_branches=("main" "dev")
+protected_branches=("main" "develop")
 
 # Read each ref being pushed
 while read local_ref local_sha remote_ref remote_sha; do
