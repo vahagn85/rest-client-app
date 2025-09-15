@@ -1,0 +1,22 @@
+{
+  "HOME_PAGE": {
+    "TITLE": "Привет!"
+  },
+  "LOCALE_SWITCHER": {
+    "SELECTOR_TITLE": "Выбрать язык"
+  },
+  "LINKS": {
+    "LOGIN": "Войти",
+    "REGISTER": "Зарегистрироваться"
+  },
+  "IMAGES_ALT": {
+    "COURSE_LOGO": "Rolling Scopes React курс"
+  },
+  "NOT_FOUND_PAGE": {
+    "MESSAGE": "Страница не найдена"
+  },
+  "ERROR_PAGE": {
+    "TITLE": "Что-то пошло не так!",
+    "RESET_BUTTON": "Попробовать снова"
+  }
+}

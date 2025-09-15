@@ -1,0 +1,22 @@
+{
+  "HOME_PAGE": {
+    "title": "Hello world!"
+  },
+  "LOCALE_SWITCHER": {
+    "SELECTOR_TITLE": "Select language"
+  },
+  "LINKS": {
+    "LOGIN": "Login",
+    "REGISTER": "Register"
+  },
+  "IMAGES_ALT": {
+    "COURSE_LOGO": "Rolling Scopes React Course"
+  },
+  "NOT_FOUND_PAGE": {
+    "MESSAGE": "Page Not Found"
+  },
+  "ERROR_PAGE": {
+    "TITLE": "Something went wrong!",
+    "RESET_BUTTON": "Try again"
+  }
+}
