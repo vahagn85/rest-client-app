@@ -31,14 +31,15 @@ export default async function RootLayout({
   });
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning={true}>
       <body
+        suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers locale={locale} messages={messages ?? {}}>
-          <div className="container mx-auto">
+          <div className="container mx-auto flex flex-col min-h-screen px-4">
             <Header />
-            <main>{children}</main>
+            <main className="flex-1 py-4">{children}</main>
             <Footer />
           </div>
         </Providers>
