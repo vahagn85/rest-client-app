@@ -3,10 +3,12 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import VariableRow from './VariableRow';
-import { VariableForm } from '@/types/variable.type';
+import { VariableField, VariableForm } from '@/types/variable.type';
+import { useEffect } from 'react';
+import { VARIABLE_STORAGE } from '@/constants/variable';
 
 function Variables() {
-  const { register, handleSubmit, control } = useForm<VariableForm>({
+  const { register, handleSubmit, control, reset } = useForm<VariableForm>({
     defaultValues: {
       variables: [],
     },
@@ -18,8 +20,18 @@ function Variables() {
   });
 
   const onSubmit = (data: VariableForm) => {
-    console.log('Saved:', data);
+    localStorage.setItem(VARIABLE_STORAGE, JSON.stringify(data.variables));
   };
+
+  useEffect(() => {
+    const saved = localStorage.getItem(VARIABLE_STORAGE);
+    if (saved) {
+      try {
+        const parsed: VariableField[] = JSON.parse(saved);
+        reset({ variables: parsed });
+      } catch {}
+    }
+  }, [reset]);
 
   return (
     <form
