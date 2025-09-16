@@ -4,5 +4,5 @@ export const ROUTES = {
   REGISTER: '/register',
   REST: '/rest',
   HISTORY: '/history',
-  VARIABLE: '/variable',
+  VARIABLE: '/variables',
 } as const;
