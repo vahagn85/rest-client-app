@@ -6,6 +6,7 @@ import VariableRow from './VariableRow';
 import { VariableField, VariableForm } from '@/types/variable.type';
 import { useEffect } from 'react';
 import { VARIABLE_STORAGE } from '@/constants/variable';
+import { toast } from 'sonner';
 
 function Variables() {
   const { register, handleSubmit, control, reset } = useForm<VariableForm>({
@@ -21,6 +22,7 @@ function Variables() {
 
   const onSubmit = (data: VariableForm) => {
     localStorage.setItem(VARIABLE_STORAGE, JSON.stringify(data.variables));
+    toast.success('Variables has been saved.');
   };
 
   useEffect(() => {
