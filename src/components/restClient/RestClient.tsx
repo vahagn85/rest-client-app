@@ -7,14 +7,15 @@ import RestBar from './RestBar';
 import RestHeaders from './RestHeaders';
 
 function RestClient() {
-  const { register, handleSubmit, control } = useForm<RestForm>({
-    defaultValues: {
-      url: '',
-      method: 'GET',
-      body: '',
-      headers: [{ key: '', value: '' }],
-    },
-  });
+  const { register, handleSubmit, control, watch, setValue } =
+    useForm<RestForm>({
+      defaultValues: {
+        url: '',
+        method: 'GET',
+        body: '',
+        headers: [],
+      },
+    });
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -51,6 +52,8 @@ function RestClient() {
             fields={fields}
             append={append}
             remove={remove}
+            watch={watch}
+            setValue={setValue}
           />
         </TabsContent>
 
