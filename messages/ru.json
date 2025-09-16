@@ -7,7 +7,8 @@
   },
   "LINKS": {
     "LOGIN": "Войти",
-    "REGISTER": "Зарегистрироваться"
+    "REGISTER": "Зарегистрироваться",
+    "LOGOUT": "Выйти"
   },
   "IMAGES_ALT": {
     "COURSE_LOGO": "Rolling Scopes React курс"
