@@ -7,8 +7,10 @@ import { VariableField, VariableForm } from '@/types/variable.type';
 import { useEffect } from 'react';
 import { VARIABLE_STORAGE } from '@/constants/variable';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 function Variables() {
+  const t = useTranslations('VARIABLE_PAGE');
   const { register, handleSubmit, control, reset } = useForm<VariableForm>({
     defaultValues: {
       variables: [],
@@ -22,7 +24,7 @@ function Variables() {
 
   const onSubmit = (data: VariableForm) => {
     localStorage.setItem(VARIABLE_STORAGE, JSON.stringify(data.variables));
-    toast.success('Variables has been saved.');
+    toast.success(t('VARIABLE_ALERT'));
   };
 
   useEffect(() => {
@@ -42,8 +44,8 @@ function Variables() {
     >
       <div className="space-y-2 mt-4 border border-gray-200 rounded p-4 shadow-xl">
         <div className="flex flex-wrap items-center justify-between border-b border-gray-200 pb-2">
-          <h1 className="text-3xl font-semibold">Variables</h1>
-          <Button type="submit">Save</Button>
+          <h1 className="text-3xl font-semibold">{t('TITLE')}</h1>
+          <Button type="submit">{t('SAVE_BTN')}</Button>
         </div>
 
         {fields.map((field, index) => (
@@ -59,7 +61,7 @@ function Variables() {
           variant="secondary"
           onClick={() => append({ key: '', value: '' })}
         >
-          + Add Variable
+          + {t('ADD_BTN')}
         </Button>
       </div>
     </form>

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { UseFormRegister } from 'react-hook-form';
 import { VariableForm } from '@/types/variable.type';
+import { useTranslations } from 'next-intl';
 
 interface VariableRowProps {
   index: number;
@@ -13,18 +14,20 @@ interface VariableRowProps {
 }
 
 function VariableRow({ index, register, onRemove }: VariableRowProps) {
+  const t = useTranslations('VARIABLE_PAGE');
+
   return (
     <div className="flex gap-2 items-start">
       <Input
         {...register(`variables.${index}.key`)}
-        placeholder="Variable name. (ex: URL)"
+        placeholder={t('VARIABLE_NAME')}
         className="flex-1"
         required
       />
 
       <Input
         {...register(`variables.${index}.value`)}
-        placeholder="Variable value"
+        placeholder={t('VARIABLE_VALUE')}
         className="flex-1"
         required
       />

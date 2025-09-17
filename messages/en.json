@@ -19,5 +19,13 @@
   "ERROR_PAGE": {
     "TITLE": "Something went wrong!",
     "RESET_BUTTON": "Try again"
+  },
+  "VARIABLE_PAGE": {
+    "TITLE": "Variables",
+    "SAVE_BTN": "Save",
+    "ADD_BTN": "Add Variable",
+    "VARIABLE_NAME": "Variable name. (ex: URL)",
+    "VARIABLE_VALUE": "Variable value",
+    "VARIABLE_ALERT": "Variables has been saved to LS"
   }
 }
