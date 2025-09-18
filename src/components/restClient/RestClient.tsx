@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { RestForm } from '@/types/rest.type';
 import RestBar from './RestBar';
 import RestHeaders from './RestHeaders';
-import { replaceVariables } from '@/utils/variables';
+import { createRouteFromData } from '@/utils/restTransform';
 
 function RestClient() {
   const { register, handleSubmit, control, watch, setValue } =
@@ -26,9 +26,10 @@ function RestClient() {
   const onSubmit = async (data: RestForm) => {
     try {
       console.log(data);
-      const testUrl = '{{Url}}/end/{{TXT}}/1';
-      const replaceText = replaceVariables(testUrl);
-      console.log(replaceText);
+      // const { body, url, headers, method } = data;
+      const route = createRouteFromData(data);
+
+      console.log(route);
     } catch (err) {
       console.log(err);
     }
