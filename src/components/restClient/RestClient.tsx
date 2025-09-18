@@ -5,7 +5,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { RestForm } from '@/types/rest.type';
 import RestBar from './RestBar';
 import RestHeaders from './RestHeaders';
-import { createRouteFromData } from '@/utils/restTransform';
+import { saveData } from '@/app/(protected)/rest/action';
+import { toast } from 'sonner';
 
 function RestClient() {
   const { register, handleSubmit, control, watch, setValue } =
@@ -25,17 +26,18 @@ function RestClient() {
 
   const onSubmit = async (data: RestForm) => {
     try {
-      console.log(data);
       if (!data.url) {
+        toast.error('URL is required');
         return;
       }
-      // const { body, url, headers, method } = data;
-      const route = createRouteFromData(data);
+      const result = await saveData(data);
 
-      console.log(route);
-    } catch (err) {
-      console.log(err);
-    }
+      if (result.success) {
+        toast.success(`Saved in Database!(${result.data?.route})`);
+      } else {
+        toast.error(`Failed to save in Database!(${result.error})`);
+      }
+    } catch {}
   };
 
   return (
