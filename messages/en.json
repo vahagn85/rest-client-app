@@ -27,5 +27,20 @@
     "VARIABLE_NAME": "Variable name. (ex: URL)",
     "VARIABLE_VALUE": "Variable value",
     "VARIABLE_ALERT": "Variables has been saved to LS"
+  },
+  "REST_PAGE": {
+    "TITLE": "REST Client",
+    "SEND_BTN": "Send",
+    "ADD_BTN": "Add Header",
+    "TAB_HEADER": "Headers",
+    "TAB_BODY": "Body",
+    "HEADER_KEY": "Header key",
+    "HEADER_VALUE": "Header value",
+    "ALERT_SUCCESS": "Saved in Database!",
+    "ALERT_ERROR": "Failed to save in Database!",
+    "ALERT_URL": "URL is required"
+  },
+  "GENERAL": {
+    "SEND_BTN": "Send"
   }
 }

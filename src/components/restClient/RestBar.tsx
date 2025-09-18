@@ -1,4 +1,4 @@
-import { UseFormRegister } from 'react-hook-form';
+import { Controller, UseFormReturn, UseFormRegister } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -9,40 +9,46 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { RestForm } from '@/types/rest.type';
+import { useTranslations } from 'next-intl';
 
 interface RestBarProps {
+  control: UseFormReturn<RestForm>['control'];
   register: UseFormRegister<RestForm>;
 }
 
-function RestBar({ register }: RestBarProps) {
+function RestBar({ control, register }: RestBarProps) {
+  const t = useTranslations('GENERAL');
+
   return (
     <div className="flex gap-2">
-      <Select
-        defaultValue="GET"
-        onValueChange={(val) =>
-          register('method').onChange({ target: { value: val } })
-        }
-      >
-        <SelectTrigger className="w-32">
-          <SelectValue placeholder="Method" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="GET">GET</SelectItem>
-          <SelectItem value="POST">POST</SelectItem>
-          <SelectItem value="PUT">PUT</SelectItem>
-          <SelectItem value="PATCH">PATCH</SelectItem>
-          <SelectItem value="DELETE">DELETE</SelectItem>
-        </SelectContent>
-      </Select>
+      <Controller
+        name="method"
+        control={control}
+        render={({ field }) => (
+          <Select onValueChange={field.onChange} value={field.value}>
+            <SelectTrigger className="w-32">
+              <SelectValue placeholder="Method" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="GET">GET</SelectItem>
+              <SelectItem value="POST">POST</SelectItem>
+              <SelectItem value="PUT">PUT</SelectItem>
+              <SelectItem value="PATCH">PATCH</SelectItem>
+              <SelectItem value="DELETE">DELETE</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+      />
 
       <Input
         type="text"
         placeholder="https://api.example.com"
         {...register('url')}
         className="flex-1"
+        required
       />
 
-      <Button type="submit">Send</Button>
+      <Button type="submit">{t('SEND_BTN')}</Button>
     </div>
   );
 }

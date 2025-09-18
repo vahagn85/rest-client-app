@@ -8,3 +8,16 @@ export interface RestForm {
   body?: string;
   headers: HeaderField[];
 }
+
+export interface RequestRest {
+  user_id: string;
+  created_at: string;
+  endpoint_url: string;
+  request_method: string;
+  request_size: number;
+  response_size: number;
+  response_status: number;
+  request_duration: number;
+  error_details?: string | null;
+  route: string;
+}
