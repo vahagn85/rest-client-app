@@ -7,6 +7,7 @@ import RestBar from './RestBar';
 import RestHeaders from './RestHeaders';
 import { saveData } from '@/app/(protected)/rest/action';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 function RestClient() {
   const { register, handleSubmit, control, watch, setValue } =
@@ -23,6 +24,7 @@ function RestClient() {
     control,
     name: 'headers',
   });
+  const route = useRouter();
 
   const onSubmit = async (data: RestForm) => {
     try {
@@ -30,10 +32,12 @@ function RestClient() {
         toast.error('URL is required');
         return;
       }
+
       const result = await saveData(data);
 
       if (result.success) {
         toast.success(`Saved in Database!(${result.data?.route})`);
+        route.push(`/rest/${result.data?.route}`);
       } else {
         toast.error(`Failed to save in Database!(${result.error})`);
       }
