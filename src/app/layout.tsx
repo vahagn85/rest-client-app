@@ -5,6 +5,7 @@ import { Providers } from '../components/providers';
 import getRequestConfig from '../i18n/request';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -42,6 +43,16 @@ export default async function RootLayout({
             <main className="flex-1 py-4">{children}</main>
             <Footer />
           </div>
+          <Toaster
+            toastOptions={{
+              classNames: {
+                error: '!border-red-400 !bg-red-50',
+                success: '!border-green-400 !bg-green-50',
+                warning: '!text-yellow-200',
+                info: '!bg-blue-200',
+              },
+            }}
+          />
         </Providers>
       </body>
     </html>
