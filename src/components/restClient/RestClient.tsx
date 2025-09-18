@@ -9,6 +9,7 @@ import { saveData } from '@/app/(protected)/rest/action';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import RestCodeGenerate from './RestCodeGenerate';
 
 function RestClient() {
   const t = useTranslations('REST_PAGE');
@@ -84,6 +85,12 @@ function RestClient() {
           </TabsContent>
         </Tabs>
       </form>
+      <RestCodeGenerate
+        method={watch('method')}
+        url={watch('url')}
+        headers={watch('headers')}
+        body={watch('body')}
+      />
     </>
   );
 }
