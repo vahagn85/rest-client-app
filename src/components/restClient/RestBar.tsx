@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { RestForm } from '@/types/rest.type';
+import { useTranslations } from 'next-intl';
 
 interface RestBarProps {
   control: UseFormReturn<RestForm>['control'];
@@ -16,6 +17,8 @@ interface RestBarProps {
 }
 
 function RestBar({ control, register }: RestBarProps) {
+  const t = useTranslations('GENERAL');
+
   return (
     <div className="flex gap-2">
       <Controller
@@ -45,7 +48,7 @@ function RestBar({ control, register }: RestBarProps) {
         required
       />
 
-      <Button type="submit">Send</Button>
+      <Button type="submit">{t('SEND_BTN')}</Button>
     </div>
   );
 }

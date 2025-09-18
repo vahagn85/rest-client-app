@@ -7,6 +7,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { RestForm } from '@/types/rest.type';
 import HeaderRow from './HeaderRow';
+import { useTranslations } from 'next-intl';
 
 interface RestHeadersProps {
   register: UseFormRegister<RestForm>;
@@ -25,6 +26,8 @@ function RestHeaders({
   watch,
   setValue,
 }: RestHeadersProps) {
+  const t = useTranslations('REST_PAGE');
+
   return (
     <div className="space-y-2 mt-4">
       {fields.map((field, index) => (
@@ -42,7 +45,7 @@ function RestHeaders({
         variant="secondary"
         onClick={() => append({ key: '', value: '' })}
       >
-        + Add Header
+        + {t('ADD_BTN')}
       </Button>
     </div>
   );

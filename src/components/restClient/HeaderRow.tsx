@@ -13,6 +13,7 @@ import { X } from 'lucide-react';
 import { useState } from 'react';
 import { RestForm } from '@/types/rest.type';
 import { UseFormRegister } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 interface HeaderRowProps {
   index: number;
@@ -31,6 +32,7 @@ function HeaderRow({
 }: HeaderRowProps) {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
+  const t = useTranslations('REST_PAGE');
 
   const filtered = HEADER_KEYS.filter((h) =>
     h.toLowerCase().includes(query.toLowerCase())
@@ -41,7 +43,7 @@ function HeaderRow({
         <Input
           {...register(`headers.${index}.key`)}
           value={valueKey}
-          placeholder="Header key"
+          placeholder={t('HEADER_KEY')}
           onChange={(e) => {
             setQuery(e.target.value);
             onChangeKey(e.target.value);
@@ -76,7 +78,7 @@ function HeaderRow({
 
       <Input
         {...register(`headers.${index}.value`)}
-        placeholder="Header value"
+        placeholder={t('HEADER_VALUE')}
         className="flex-1"
       />
 
