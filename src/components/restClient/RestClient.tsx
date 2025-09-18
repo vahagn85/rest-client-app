@@ -26,6 +26,9 @@ function RestClient() {
   const onSubmit = async (data: RestForm) => {
     try {
       console.log(data);
+      if (!data.url) {
+        return;
+      }
       // const { body, url, headers, method } = data;
       const route = createRouteFromData(data);
 
@@ -42,7 +45,7 @@ function RestClient() {
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 max-w-4xl mx-auto"
       >
-        <RestBar register={register} />
+        <RestBar register={register} control={control} />
 
         <Tabs defaultValue="headers" className="mt-4">
           <TabsList className="w-full">
