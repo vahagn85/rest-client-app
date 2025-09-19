@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import RestCodeGenerate from './RestCodeGenerate';
+import RestBody from './RestBody';
 
 function RestClient() {
   const t = useTranslations('REST_PAGE');
@@ -81,7 +82,10 @@ function RestClient() {
             value="body"
             className="border border-gray-200 rounded px-4 pb-4 shadow-xl"
           >
-            <p>BODY</p>
+            <RestBody
+              value={watch('body') || ''}
+              onChange={(value) => setValue('body', value)}
+            />
           </TabsContent>
         </Tabs>
       </form>
