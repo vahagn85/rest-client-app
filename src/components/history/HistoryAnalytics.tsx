@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/table';
 import { getStatusColor } from '@/utils/restTransform';
 import { getMethodColor } from '@/utils/colors';
+import { useTranslations } from 'next-intl';
 
 type ResponseRest = RequestRest & { id: string };
 
@@ -20,22 +21,24 @@ interface HistoryAnalyticsProps {
 }
 
 function HistoryAnalytics({ data }: HistoryAnalyticsProps) {
+  const t = useTranslations('HISTORY_PAGE');
+
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold text-center">History Requests</h1>
+      <h1 className="text-2xl font-bold text-center">{t('TITLE')}</h1>
       <Table className="border border-gray-200 rounded-md text-sm font-mono">
         <TableHeader>
           <TableRow className="bg-muted/40 border-b">
-            <TableHead className="px-3 py-2">Method</TableHead>
-            <TableHead className="px-3 py-2">Endpoint/URL</TableHead>
-            <TableHead className="px-3 py-2">Status</TableHead>
-            <TableHead className="px-3 py-2">Request Duration</TableHead>
-            <TableHead className="px-3 py-2">Request Size</TableHead>
-            <TableHead className="px-3 py-2">Response Size</TableHead>
+            <TableHead className="px-3 py-2">{t('METHOD')}</TableHead>
+            <TableHead className="px-3 py-2">{t('ENDPOINT')}</TableHead>
+            <TableHead className="px-3 py-2">{t('STATUS')}</TableHead>
+            <TableHead className="px-3 py-2">{t('DURATION')}</TableHead>
+            <TableHead className="px-3 py-2">{t('REQUEST_SIZE')}</TableHead>
+            <TableHead className="px-3 py-2">{t('RESPONSE_SIZE')}</TableHead>
             <TableHead className="px-3 py-2 w-[220px] whitespace-nowrap">
-              Error Details
+              {t('ERROR')}
             </TableHead>
-            <TableHead className="px-3 py-2">Timestamp</TableHead>
+            <TableHead className="px-3 py-2">{t('TIMESTAMP')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

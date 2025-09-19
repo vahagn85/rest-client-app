@@ -39,6 +39,20 @@
     "ALERT_ERROR": "Не удалось сохранить в базе данных!",
     "ALERT_URL": "Требуется URL"
   },
+  "HISTORY_PAGE": {
+    "TITLE": "История запросов",
+    "METHOD": "Метод",
+    "ENDPOINT": "Эндпоинт/URL",
+    "STATUS": "Статус",
+    "DURATION": "Длительность запроса",
+    "REQUEST_SIZE": "Размер запроса",
+    "RESPONSE_SIZE": "Размер ответа",
+    "ERROR": "Детали ошибки",
+    "TIMESTAMP": "Время",
+    "EMPTY": "Вы ещё не выполняли запросы",
+    "TRY": "Попробуйте:",
+    "REST_CLIENT": "REST клиент"
+  },
   "GENERAL": {
     "SEND_BTN": "Отправить"
   }

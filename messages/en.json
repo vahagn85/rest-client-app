@@ -40,6 +40,20 @@
     "ALERT_ERROR": "Failed to save in Database!",
     "ALERT_URL": "URL is required"
   },
+  "HISTORY_PAGE": {
+    "TITLE": "History Requests",
+    "METHOD": "Method",
+    "ENDPOINT": "Endpoint/URL",
+    "STATUS": "Status",
+    "DURATION": "Request Duration",
+    "REQUEST_SIZE": "Request Size",
+    "RESPONSE_SIZE": "Response Size",
+    "ERROR": "Error Details",
+    "TIMESTAMP": "Timestamp",
+    "EMPTY": "You haven't executed any requests yet",
+    "TRY": "Try:",
+    "REST_CLIENT": "REST Client"
+  },
   "GENERAL": {
     "SEND_BTN": "Send"
   }

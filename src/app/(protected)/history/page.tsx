@@ -16,9 +16,7 @@ export default async function HistoryPage() {
     .order('created_at', { ascending: false });
 
   if (error) {
-    return (
-      <p className="text-red-500">Failed to load history: {error.message}</p>
-    );
+    return <p className="text-red-500">{error.message}</p>;
   }
 
   if (!data || data.length === 0) {
