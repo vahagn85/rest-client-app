@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import dynamic from 'next/dynamic';
+import HistoryEmpty from '@/components/history/HistoryEmpty';
 
 const HistoryAnalytics = dynamic(
   () => import('@/components/history/HistoryAnalytics'),
@@ -16,5 +17,10 @@ export default async function HistoryPage() {
       <p className="text-red-500">Failed to load history: {error.message}</p>
     );
   }
+
+  if (!data || data.length === 0) {
+    return <HistoryEmpty />;
+  }
+
   return <HistoryAnalytics data={data} />;
 }
