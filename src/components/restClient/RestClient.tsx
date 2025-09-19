@@ -11,9 +11,16 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import RestCodeGenerate from './RestCodeGenerate';
 import RestBody from './RestBody';
+import RestResponse from './RestResponse';
+import { useState } from 'react';
 
 function RestClient() {
   const t = useTranslations('REST_PAGE');
+  const [response, setResponse] = useState<{
+    status: number | null;
+    body: string;
+    isJson: boolean;
+  }>({ status: null, body: '', isJson: false });
 
   const { register, handleSubmit, control, watch, setValue } =
     useForm<RestForm>({
@@ -46,7 +53,12 @@ function RestClient() {
       } else {
         toast.error(`${t('ALERT_ERROR')} (${result.error})`);
       }
-    } catch {}
+      if (result.response) {
+        setResponse(result.response);
+      }
+    } catch {
+      toast.error(t('ALERT_ERROR'));
+    }
   };
 
   return (
@@ -94,6 +106,11 @@ function RestClient() {
         url={watch('url')}
         headers={watch('headers')}
         body={watch('body')}
+      />
+      <RestResponse
+        status={response.status}
+        body={response.body}
+        isJson={response.isJson}
       />
     </>
   );
