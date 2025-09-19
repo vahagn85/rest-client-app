@@ -10,7 +10,10 @@ const HistoryAnalytics = dynamic(
 export default async function HistoryPage() {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.from('requests_log').select('*');
+  const { data, error } = await supabase
+    .from('requests_log')
+    .select('*')
+    .order('created_at', { ascending: false });
 
   if (error) {
     return (
