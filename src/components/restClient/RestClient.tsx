@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { RestForm } from '@/types/rest.type';
@@ -7,12 +8,12 @@ import RestBar from './RestBar';
 import RestHeaders from './RestHeaders';
 import { saveData } from '@/app/(protected)/rest/action';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import RestCodeGenerate from './RestCodeGenerate';
 import RestBody from './RestBody';
 import RestResponse from './RestResponse';
-import { useState } from 'react';
+import { hasProtocol, parseRouteToData } from '@/utils/restTransform';
 
 function RestClient() {
   const t = useTranslations('REST_PAGE');
@@ -22,25 +23,34 @@ function RestClient() {
     isJson: boolean;
   }>({ status: null, body: '', isJson: false });
 
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const [method, encodedUrl, encodedBody] = params.rest || [];
+
+  const initialValues = useMemo(
+    () =>
+      parseRouteToData(
+        method,
+        encodedUrl,
+        encodedBody,
+        searchParams.toString()
+      ),
+    [method, encodedUrl, encodedBody, searchParams]
+  );
+
   const { register, handleSubmit, control, watch, setValue } =
     useForm<RestForm>({
-      defaultValues: {
-        url: '',
-        method: 'GET',
-        body: '',
-        headers: [],
-      },
+      defaultValues: initialValues,
     });
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'headers',
   });
-  const route = useRouter();
 
   const onSubmit = async (data: RestForm) => {
     try {
-      if (!data.url) {
+      if (!data.url || hasProtocol(data.url)) {
         toast.error(t('ALERT_URL'));
         return;
       }
@@ -49,7 +59,7 @@ function RestClient() {
 
       if (result.success) {
         toast.success(`${t('ALERT_SUCCESS')} (${result.data?.route})`);
-        route.push(`/rest/${result.data?.route}`);
+        window.history.replaceState(null, '', `/rest/${result.data?.route}`);
       } else {
         toast.error(`${t('ALERT_ERROR')} (${result.error})`);
       }

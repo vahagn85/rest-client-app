@@ -10,8 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getStatusColor } from '@/utils/restTransform';
-import { getMethodColor } from '@/utils/colors';
+import { getMethodColor, getStatusColor } from '@/utils/colors';
 import { useTranslations } from 'next-intl';
 
 type ResponseRest = RequestRest & { id: string };

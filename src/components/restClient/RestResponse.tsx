@@ -1,6 +1,6 @@
 import CodeMirror from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
-import { getStatusColor } from '@/utils/restTransform';
+import { getStatusColor } from '@/utils/colors';
 
 interface RestResponseProps {
   status: number | null;
