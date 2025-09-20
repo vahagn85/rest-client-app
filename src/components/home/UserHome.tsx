@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
 import { useTranslations } from 'next-intl';
+import GeneralInfo from '../GeneralInfo';
 
 interface UserHomeProps {
   email?: string | null;
@@ -40,6 +41,7 @@ function UserHome({ email }: UserHomeProps) {
           </Link>
         </nav>
       </div>
+      <GeneralInfo />
     </div>
   );
 }

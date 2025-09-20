@@ -21,25 +21,24 @@ export default async function Header() {
         <Link href={ROUTES.ROOT}>
           <AppLogo className="w-20 h-12" />
         </Link>
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-3">
           {user ? (
-            <form action={signOutAction}>
-              <Button variant="secondary">{t('LOGOUT')}</Button>
-            </form>
+            <>
+              <Button asChild variant="secondary">
+                <Link href={ROUTES.ROOT}>{t('MAIN')}</Link>
+              </Button>
+              <form action={signOutAction}>
+                <Button variant="default">{t('LOGOUT')}</Button>
+              </form>
+            </>
           ) : (
             <>
-              <Link
-                className="underline underline-offset-2"
-                href={ROUTES.LOGIN}
-              >
-                {t('LOGIN')}
-              </Link>
-              <Link
-                className="underline underline-offset-2"
-                href={ROUTES.REGISTER}
-              >
-                {t('REGISTER')}
-              </Link>
+              <Button asChild variant="default">
+                <Link href={ROUTES.LOGIN}>{t('LOGIN')}</Link>
+              </Button>
+              <Button asChild variant="default">
+                <Link href={ROUTES.REGISTER}>{t('REGISTER')}</Link>
+              </Button>
             </>
           )}
           <LocaleSwitcher />

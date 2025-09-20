@@ -17,6 +17,7 @@ import { hasProtocol, parseRouteToData } from '@/utils/restTransform';
 
 function RestClient() {
   const t = useTranslations('REST_PAGE');
+  const tGeneral = useTranslations('GENERAL');
   const [response, setResponse] = useState<{
     status: number | null;
     body: string;
@@ -73,7 +74,9 @@ function RestClient() {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold text-center mb-4">{t('TITLE')}</h1>
+      <h1 className="text-3xl font-semibold text-center mb-4">
+        {tGeneral('REST_CLIENT')}
+      </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 max-w-4xl mx-auto"
