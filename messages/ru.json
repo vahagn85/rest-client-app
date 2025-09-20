@@ -3,7 +3,9 @@
     "TITLE": "Привет!"
   },
   "LOCALE_SWITCHER": {
-    "SELECTOR_TITLE": "Выбрать язык"
+    "SELECTOR_TITLE": "Выбрать язык",
+    "en": "Английский",
+    "ru": "Русский"
   },
   "LINKS": {
     "LOGIN": "Войти",

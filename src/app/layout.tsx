@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
-import { Providers } from '../components/providers';
-import getRequestConfig from '../i18n/request';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/sonner';
+import { getLocale } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import './globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,9 +27,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { locale, messages } = await getRequestConfig({
-    requestLocale: Promise.resolve(undefined),
-  });
+  const locale = await getLocale();
 
   return (
     <html lang={locale} suppressHydrationWarning={true}>
@@ -37,7 +35,7 @@ export default async function RootLayout({
         suppressHydrationWarning={true}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers locale={locale} messages={messages ?? {}}>
+        <NextIntlClientProvider>
           <div className="container mx-auto flex flex-col min-h-screen px-4">
             <Header />
             <main className="flex-1 py-4">{children}</main>
@@ -53,7 +51,7 @@ export default async function RootLayout({
               },
             }}
           />
-        </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
