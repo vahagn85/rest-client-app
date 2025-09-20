@@ -1,12 +1,9 @@
 import { signupAction } from '@/app/auth/actions';
 import AuthForm from '@/components/AuthForm';
+import { useTranslations } from 'next-intl';
 
 export default function RegisterPage() {
-  return (
-    <AuthForm
-      title="Registration"
-      action={signupAction}
-      buttonText="Register"
-    />
-  );
+  const t = useTranslations('LINKS');
+
+  return <AuthForm title={t('REGISTER')} action={signupAction} />;
 }

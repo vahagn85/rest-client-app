@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Form,
   FormField,
@@ -16,21 +16,27 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircleIcon } from 'lucide-react';
-import { formSchema } from '@/validation/formSchema';
+import { createFormSchema } from '@/validation/formSchema';
 import { useTranslations } from 'next-intl';
+import { toast } from 'sonner';
 
 interface AuthFormProps {
   title: string;
-  action: (formData: FormData) => Promise<void>;
-  buttonText: string;
+  action: (
+    formData: FormData
+  ) => Promise<void | { error: boolean; message: string }>;
 }
 
-export default function AuthForm({ title, action, buttonText }: AuthFormProps) {
+export default function AuthForm({ title, action }: AuthFormProps) {
   const t = useTranslations('FORM');
+  const formSchema = useMemo(() => createFormSchema(t), [t]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'all',
     defaultValues: { email: '', password: '' },
   });
+
   const [errorMsg, setErrorMsg] = useState('');
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -39,7 +45,12 @@ export default function AuthForm({ title, action, buttonText }: AuthFormProps) {
       formData.append('email', values.email);
       formData.append('password', values.password);
 
-      await action(formData);
+      const result = await action(formData);
+
+      if (result?.error) {
+        toast.error(result.message);
+        setErrorMsg(result.message);
+      }
     } catch (err) {
       if (err instanceof Error) {
         setErrorMsg(err.message);
@@ -100,7 +111,9 @@ export default function AuthForm({ title, action, buttonText }: AuthFormProps) {
             </Alert>
           )}
 
-          <Button type="submit">{buttonText}</Button>
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting ? t('SUBMITTING') : t('SUBMIT')}
+          </Button>
         </form>
       </Form>
     </div>

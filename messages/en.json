@@ -73,6 +73,8 @@
     "PASSWORD_MIN": "Password must be at least 8 symbols",
     "PASSWORD_LETTER": "Password must contain at least one letter",
     "PASSWORD_DIGIT": "Password must contain at least one digit",
-    "PASSWORD_SPECIAL": "Password must contain at least one special character"
+    "PASSWORD_SPECIAL": "Password must contain at least one special character",
+    "SUBMIT": "Submit",
+    "SUBMITTING": "Submitting..."
   }
 }

@@ -14,7 +14,7 @@ export async function loginAction(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    throw new Error(error.message);
+    return { error: true, message: error.message };
   }
 
   revalidatePath('/', 'layout');
@@ -32,7 +32,7 @@ export async function signupAction(formData: FormData) {
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
-    throw new Error(error.message);
+    return { error: true, message: error.message };
   }
 
   revalidatePath('/', 'layout');
