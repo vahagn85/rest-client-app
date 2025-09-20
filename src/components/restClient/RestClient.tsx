@@ -13,7 +13,12 @@ import { useTranslations } from 'next-intl';
 import RestCodeGenerate from './RestCodeGenerate';
 import RestBody from './RestBody';
 import RestResponse from './RestResponse';
-import { hasProtocol, parseRouteToData } from '@/utils/restTransform';
+import {
+  createRouteFromData,
+  hasProtocol,
+  parseRouteToData,
+  replaceData,
+} from '@/utils/restTransform';
 
 function RestClient() {
   const t = useTranslations('REST_PAGE');
@@ -56,11 +61,13 @@ function RestClient() {
         return;
       }
 
-      const result = await saveData(data);
+      const route = createRouteFromData(data);
+      const replacedData = replaceData(data);
+      const result = await saveData(replacedData, route);
 
       if (result.success) {
         toast.success(`${t('ALERT_SUCCESS')} (${result.data?.route})`);
-        window.history.replaceState(null, '', `/rest/${result.data?.route}`);
+        window.history.replaceState(null, '', `/rest/${route}`);
       } else {
         toast.error(`${t('ALERT_ERROR')} (${result.error})`);
       }

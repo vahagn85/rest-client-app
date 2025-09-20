@@ -88,6 +88,24 @@ export function parseRouteToData(
   };
 }
 
+export function replaceData(data: RestForm) {
+  const { method, url, body, headers = [] } = data;
+  const replaceUrl = replaceVariables(url);
+
+  const replaceBody = body ? replaceVariables(JSON.stringify(body)) : undefined;
+  const replaceHeaders = headers.map(({ key, value }) => ({
+    key: replaceVariables(key),
+    value: replaceVariables(value),
+  }));
+
+  return {
+    method,
+    url: replaceUrl,
+    body: replaceBody ? JSON.parse(replaceBody) : undefined,
+    headers: replaceHeaders,
+  };
+}
+
 export function hasProtocol(url: string): boolean {
   const replacedUrl = replaceVariables(url);
   return !/^https?:\/\//i.test(replacedUrl);
