@@ -12,9 +12,6 @@
     "REGISTER": "Register",
     "LOGOUT": "Logout"
   },
-  "IMAGES_ALT": {
-    "COURSE_LOGO": "Rolling Scopes React Course"
-  },
   "NOT_FOUND_PAGE": {
     "MESSAGE": "Page Not Found"
   },
