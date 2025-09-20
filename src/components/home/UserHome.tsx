@@ -1,16 +1,20 @@
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
+import { useTranslations } from 'next-intl';
 
 interface UserHomeProps {
   email?: string | null;
 }
 
 function UserHome({ email }: UserHomeProps) {
+  const t = useTranslations('HOME_PAGE');
+  const tGeneral = useTranslations('GENERAL');
+
   return (
     <div className="max-w-4xl mx-auto mt-16 px-6">
       <div className="bg-white shadow-md rounded-xl p-6 text-center border border-gray-400">
         <h1 className="text-2xl font-semibold">
-          Welcome back, <span className="text-blue-600">{email}!</span>
+          {t('WELCOME_BACK')} <span className="text-blue-600">{email}!</span>
         </h1>
       </div>
 
@@ -20,19 +24,19 @@ function UserHome({ email }: UserHomeProps) {
             href={ROUTES.REST}
             className="text-blue-600 hover:text-blue-800 transition"
           >
-            REST Client
+            {tGeneral('REST_CLIENT')}
           </Link>
           <Link
             href={ROUTES.HISTORY}
             className="text-blue-600 hover:text-blue-800 transition"
           >
-            History
+            {tGeneral('HISTORY')}
           </Link>
           <Link
             href={ROUTES.VARIABLE}
             className="text-blue-600 hover:text-blue-800 transition"
           >
-            Variables
+            {tGeneral('VARIABLES')}
           </Link>
         </nav>
       </div>

@@ -1,6 +1,7 @@
 {
   "HOME_PAGE": {
-    "TITLE": "Hello!"
+    "WELCOME": "Welcome!",
+    "WELCOME_BACK": "Welcome back,"
   },
   "LOCALE_SWITCHER": {
     "SELECTOR_TITLE": "Select language",
@@ -8,9 +9,9 @@
     "ru": "Russian"
   },
   "LINKS": {
-    "LOGIN": "Login",
-    "REGISTER": "Register",
-    "LOGOUT": "Logout"
+    "LOGIN": "Sign In",
+    "REGISTER": "Sign Up",
+    "LOGOUT": "Sign Out"
   },
   "NOT_FOUND_PAGE": {
     "MESSAGE": "Page Not Found"
@@ -20,21 +21,23 @@
     "RESET_BUTTON": "Try again"
   },
   "VARIABLE_PAGE": {
-    "TITLE": "Variables",
-    "SAVE_BTN": "Save",
     "ADD_BTN": "Add Variable",
     "VARIABLE_NAME": "Variable name. (ex: URL)",
     "VARIABLE_VALUE": "Variable value",
     "VARIABLE_ALERT": "Variables has been saved to LS"
   },
   "REST_PAGE": {
-    "TITLE": "REST Client",
-    "SEND_BTN": "Send",
+    "RESPONSE": "Response",
+    "STATUS": "Status:",
     "ADD_BTN": "Add Header",
     "TAB_HEADER": "Headers",
     "TAB_BODY": "Body",
     "HEADER_KEY": "Header key",
     "HEADER_VALUE": "Header value",
+    "CODE_SNIPPET_ERROR": "Not enough details to generate code.",
+    "CODE_SNIPPET_ERROR_URL": "URL must start with 'http://' or 'https://'.",
+    "CODE_SNIPPET_ERROR_CODE": "'Can not generate code.'",
+    "GENERATE_CODE": "Generate Code",
     "ALERT_SUCCESS": "Saved in Database!",
     "ALERT_ERROR": "Failed to save in Database!",
     "ALERT_URL": "URL is required and must start with 'http://' or 'https://'"
@@ -50,10 +53,26 @@
     "ERROR": "Error Details",
     "TIMESTAMP": "Timestamp",
     "EMPTY": "You haven't executed any requests yet",
-    "TRY": "Try:",
-    "REST_CLIENT": "REST Client"
+    "TRY": "Try:"
   },
   "GENERAL": {
-    "SEND_BTN": "Send"
+    "SEND_BTN": "Send",
+    "SAVE_BTN": "Save",
+    "REST_CLIENT": "REST Client",
+    "HISTORY": "History",
+    "VARIABLES": "Variables"
+  },
+  "FORM": {
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "ENTER_EMAIL": "Enter your email",
+    "ENTER_PASSWORD": "Enter password",
+    "TRY_AGAIN": "Please try again.",
+    "ERROR_UNEXPECTED": "Something went wrong!",
+    "INVALID_EMAIL": "Invalid email address",
+    "PASSWORD_MIN": "Password must be at least 8 symbols",
+    "PASSWORD_LETTER": "Password must contain at least one letter",
+    "PASSWORD_DIGIT": "Password must contain at least one digit",
+    "PASSWORD_SPECIAL": "Password must contain at least one special character"
   }
 }

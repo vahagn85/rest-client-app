@@ -1,10 +1,11 @@
 'use client';
 
+import Loader from '@/components/Loader';
 import dynamic from 'next/dynamic';
 
 const Variables = dynamic(() => import('@/components/variables/Variables'), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <Loader />,
 });
 
 export default function VariablesPageClient() {

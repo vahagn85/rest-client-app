@@ -4,9 +4,11 @@ import { useTranslations } from 'next-intl';
 
 function GuestHome() {
   const t = useTranslations('LINKS');
+  const tHome = useTranslations('HOME_PAGE');
+
   return (
     <div className="flex flex-col items-center justify-center mt-20 text-center">
-      <h1 className="text-3xl font-bold mb-6">Welcome!</h1>
+      <h1 className="text-3xl font-bold mb-6">{tHome('WELCOME')}</h1>
       <div className="flex gap-4">
         <Link
           href={ROUTES.LOGIN}

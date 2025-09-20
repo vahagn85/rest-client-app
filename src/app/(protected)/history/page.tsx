@@ -1,10 +1,11 @@
 import { createClient } from '@/utils/supabase/server';
 import dynamic from 'next/dynamic';
 import HistoryEmpty from '@/components/history/HistoryEmpty';
+import Loader from '@/components/Loader';
 
 const HistoryAnalytics = dynamic(
   () => import('@/components/history/HistoryAnalytics'),
-  { ssr: true }
+  { ssr: true, loading: () => <Loader /> }
 );
 
 export default async function HistoryPage() {

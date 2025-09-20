@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircleIcon } from 'lucide-react';
 import { formSchema } from '@/validation/formSchema';
+import { useTranslations } from 'next-intl';
 
 interface AuthFormProps {
   title: string;
@@ -25,6 +26,7 @@ interface AuthFormProps {
 }
 
 export default function AuthForm({ title, action, buttonText }: AuthFormProps) {
+  const t = useTranslations('FORM');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: '', password: '' },
@@ -42,7 +44,7 @@ export default function AuthForm({ title, action, buttonText }: AuthFormProps) {
       if (err instanceof Error) {
         setErrorMsg(err.message);
       } else {
-        setErrorMsg('Something went wrong!');
+        setErrorMsg(t('ERROR_UNEXPECTED'));
       }
     }
   };
@@ -60,11 +62,11 @@ export default function AuthForm({ title, action, buttonText }: AuthFormProps) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t('EMAIL')}</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder={t('ENTER_EMAIL')}
                     {...field}
                   />
                 </FormControl>
@@ -77,11 +79,11 @@ export default function AuthForm({ title, action, buttonText }: AuthFormProps) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t('PASSWORD')}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Enter password"
+                    placeholder={t('ENTER_PASSWORD')}
                     {...field}
                   />
                 </FormControl>
@@ -94,7 +96,7 @@ export default function AuthForm({ title, action, buttonText }: AuthFormProps) {
             <Alert variant="destructive" className="bg-red-100">
               <AlertCircleIcon />
               <AlertTitle>{errorMsg}</AlertTitle>
-              <AlertDescription>Please try again.</AlertDescription>
+              <AlertDescription>{t('TRY_AGAIN')}</AlertDescription>
             </Alert>
           )}
 
