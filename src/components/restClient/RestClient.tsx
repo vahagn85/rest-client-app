@@ -9,9 +9,18 @@ import { saveData } from '@/app/(protected)/rest/action';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import RestCodeGenerate from './RestCodeGenerate';
+import RestBody from './RestBody';
+import RestResponse from './RestResponse';
+import { useState } from 'react';
 
 function RestClient() {
   const t = useTranslations('REST_PAGE');
+  const [response, setResponse] = useState<{
+    status: number | null;
+    body: string;
+    isJson: boolean;
+  }>({ status: null, body: '', isJson: false });
 
   const { register, handleSubmit, control, watch, setValue } =
     useForm<RestForm>({
@@ -44,7 +53,12 @@ function RestClient() {
       } else {
         toast.error(`${t('ALERT_ERROR')} (${result.error})`);
       }
-    } catch {}
+      if (result.response) {
+        setResponse(result.response);
+      }
+    } catch {
+      toast.error(t('ALERT_ERROR'));
+    }
   };
 
   return (
@@ -80,10 +94,24 @@ function RestClient() {
             value="body"
             className="border border-gray-200 rounded px-4 pb-4 shadow-xl"
           >
-            <p>BODY</p>
+            <RestBody
+              value={watch('body') || ''}
+              onChange={(value) => setValue('body', value)}
+            />
           </TabsContent>
         </Tabs>
       </form>
+      <RestCodeGenerate
+        method={watch('method')}
+        url={watch('url')}
+        headers={watch('headers')}
+        body={watch('body')}
+      />
+      <RestResponse
+        status={response.status}
+        body={response.body}
+        isJson={response.isJson}
+      />
     </>
   );
 }

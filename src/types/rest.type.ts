@@ -9,6 +9,13 @@ export interface RestForm {
   headers: HeaderField[];
 }
 
+export type CodeLanguage = {
+  value: string;
+  key: string;
+  label: string;
+  client?: string;
+};
+
 export interface RequestRest {
   user_id: string;
   created_at: string;

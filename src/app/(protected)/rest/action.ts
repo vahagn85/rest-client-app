@@ -57,6 +57,18 @@ export async function saveData(data: RestForm) {
     return {
       success: true,
       data: result,
+      response: {
+        status: response.status,
+        body: responseText,
+        isJson: (() => {
+          try {
+            JSON.parse(responseText);
+            return true;
+          } catch {
+            return false;
+          }
+        })(),
+      },
       error_details: response.ok ? null : responseText,
     };
   } catch (error) {
@@ -77,6 +89,15 @@ export async function saveData(data: RestForm) {
 
     await supabase.from('requests_log').insert([result]);
 
-    return { success: false, data: result, error: result.error_details };
+    return {
+      success: false,
+      data: result,
+      response: {
+        status: 0,
+        body: (error as Error)?.message || 'Unknown error',
+        isJson: false,
+      },
+      error: result.error_details,
+    };
   }
 }

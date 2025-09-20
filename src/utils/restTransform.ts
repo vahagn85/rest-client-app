@@ -40,3 +40,14 @@ export function createRouteFromData(data: RestForm) {
 
   return route;
 }
+
+export function getStatusColor(status: number) {
+  if (status >= 200 && status < 300)
+    return 'bg-green-100 text-green-700 border-green-300';
+  if (status >= 300 && status < 400)
+    return 'bg-blue-100 text-blue-700 border-blue-300';
+  if (status >= 400 && status < 500)
+    return 'bg-yellow-100 text-yellow-700 border-yellow-300';
+  if (status >= 500) return 'bg-red-100 text-red-700 border-red-300';
+  return 'bg-gray-100 text-gray-700 border-gray-300';
+}
