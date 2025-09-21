@@ -35,18 +35,55 @@ vi.mock('next-intl/server', () => ({
     })
   ),
 }));
-vi.mock('next-intl', () => ({
-  useTranslations: (section?: keyof Messages) => {
-    return (key: string) => {
-      if (section && key in enMessages[section]) {
-        return getMessage(section, key as keyof Messages[typeof section]);
-      }
-      return key;
-    };
-  },
-  useLocale: () => 'en',
-}));
+
+vi.mock('next-intl', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('next-intl')>();
+  return {
+    ...actual,
+    useTranslations: (section?: keyof typeof enMessages) => {
+      return (key: string) => {
+        if (section && key in enMessages[section]) {
+          return (enMessages[section] as Record<string, string>)[key];
+        }
+        return key;
+      };
+    },
+    useLocale: () => 'en',
+  };
+});
 
 vi.mock('@/app/auth/actions', () => ({
   signOutAction: vi.fn(),
 }));
+
+vi.mock('sonner', () => ({
+  toast: {
+    success: vi.fn(),
+    error: vi.fn(),
+  },
+}));
+
+vi.mock('@/utils/variables', () => ({
+  replaceVariables: (url: string) => url,
+}));
+
+vi.mock('@/utils/codeGeneration', () => {
+  return {
+    LANGUAGES: [
+      { value: 'shell-curl', key: 'shell', label: 'curl', client: 'curl' },
+      {
+        value: 'javascript-fetch',
+        key: 'javascript',
+        label: 'JavaScript (Fetch)',
+        client: 'fetch',
+      },
+      {
+        value: 'python-requests',
+        key: 'python',
+        label: 'Python',
+        client: 'requests',
+      },
+    ],
+    generateCodeSnippet: vi.fn(),
+  };
+});
