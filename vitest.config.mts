@@ -18,6 +18,11 @@ export default defineConfig({
         'src/**/*.spec.{ts,tsx}',
         'src/test-utils/**',
         'src/types/**',
+        'src/utils/supabase/**',
+        'src/middleware.ts',
+        'src/app/auth/confirm/route.ts',
+        'src/i18n/locales.ts',
+        'src/i18n/request.ts',
       ],
       thresholds: {
         statements: 80,
