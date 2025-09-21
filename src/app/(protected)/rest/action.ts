@@ -1,9 +1,8 @@
 'use server';
 import { RequestRest, RestForm } from '@/types/rest.type';
-import { createRouteFromData } from '@/utils/restTransform';
 import { createClient } from '@/utils/supabase/server';
 
-export async function saveData(data: RestForm) {
+export async function saveData(data: RestForm, route: string) {
   const supabase = await createClient();
 
   const {
@@ -14,7 +13,6 @@ export async function saveData(data: RestForm) {
   if (userError || !user) {
     return { success: false, error: 'User not auth' };
   }
-  const route = createRouteFromData(data);
 
   const { method, url, body, headers = [] } = data;
 
@@ -29,7 +27,7 @@ export async function saveData(data: RestForm) {
     const response = await fetch(url, {
       method,
       headers: headersObj,
-      body: requestBody,
+      ...(method !== 'GET' && requestBody ? { body: requestBody } : {}),
     });
 
     const duration = Math.round(performance.now() - start);

@@ -5,6 +5,8 @@ import { createClient } from '@/utils/supabase/server';
 import { getTranslations } from 'next-intl/server';
 import { Button } from './ui/button';
 import { signOutAction } from '@/app/auth/actions';
+import HeaderWrapper from './HeaderWrapper';
+import { AppLogo } from './icons/AppLogo';
 
 export default async function Header() {
   const supabase = await createClient();
@@ -14,30 +16,34 @@ export default async function Header() {
   const t = await getTranslations('LINKS');
 
   return (
-    <header className="sticky top-0 py-4">
+    <HeaderWrapper>
       <nav className="flex justify-between relative">
-        <Link href={ROUTES.ROOT} className="font-bold italic text-xl">
-          REST
+        <Link href={ROUTES.ROOT}>
+          <AppLogo className="w-20 h-12" />
         </Link>
-        <div className="flex gap-8">
-          <Link className="underline underline-offset-2" href={ROUTES.LOGIN}>
-            {t('LOGIN')}
-          </Link>
+        <div className="flex flex-wrap items-center gap-3">
           {user ? (
-            <form action={signOutAction}>
-              <Button variant="secondary">{t('LOGOUT')}</Button>
-            </form>
+            <>
+              <Button asChild variant="secondary">
+                <Link href={ROUTES.ROOT}>{t('MAIN')}</Link>
+              </Button>
+              <form action={signOutAction}>
+                <Button variant="default">{t('LOGOUT')}</Button>
+              </form>
+            </>
           ) : (
-            <Link
-              className="underline underline-offset-2"
-              href={ROUTES.REGISTER}
-            >
-              {t('REGISTER')}
-            </Link>
+            <>
+              <Button asChild variant="default">
+                <Link href={ROUTES.LOGIN}>{t('LOGIN')}</Link>
+              </Button>
+              <Button asChild variant="default">
+                <Link href={ROUTES.REGISTER}>{t('REGISTER')}</Link>
+              </Button>
+            </>
           )}
+          <LocaleSwitcher />
         </div>
-        <LocaleSwitcher />
       </nav>
-    </header>
+    </HeaderWrapper>
   );
 }

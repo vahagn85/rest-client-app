@@ -1,22 +1,24 @@
 import Link from 'next/link';
 import { ROUTES } from '@/constants/routes';
 import { useTranslations } from 'next-intl';
+import GeneralInfo from '../GeneralInfo';
 
 function GuestHome() {
   const t = useTranslations('LINKS');
+
   return (
-    <div className="flex flex-col items-center justify-center mt-20 text-center">
-      <h1 className="text-3xl font-bold mb-6">Welcome!</h1>
-      <div className="flex gap-4">
+    <div className="max-w-4xl mx-auto mt-8 px-6">
+      <GeneralInfo />
+      <div className="flex items-center gap-4 justify-center mt-8">
         <Link
           href={ROUTES.LOGIN}
-          className="px-6 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
+          className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition"
         >
           {t('LOGIN')}
         </Link>
         <Link
           href={ROUTES.REGISTER}
-          className="px-6 py-2 rounded-lg border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 transition"
+          className="px-6 py-2 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition"
         >
           {t('REGISTER')}
         </Link>

@@ -1,25 +1,17 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function Error({ reset }: { reset: () => void }) {
   const t = useTranslations('ERROR_PAGE');
 
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center mt-15 space-y-4">
       <h2>{t('TITLE')}</h2>
-      <button onClick={() => reset()}>{t('RESET_BUTTON')}</button>
+      <Button variant="default" onClick={() => reset()}>
+        {t('RESET_BUTTON')}
+      </Button>
     </div>
   );
 }

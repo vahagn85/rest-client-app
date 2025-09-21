@@ -1,6 +1,9 @@
 import { loginAction } from '@/app/auth/actions';
 import AuthForm from '@/components/AuthForm';
+import { useTranslations } from 'next-intl';
 
 export default function LoginPage() {
-  return <AuthForm title="Login" action={loginAction} buttonText="Login" />;
+  const t = useTranslations('LINKS');
+
+  return <AuthForm title={t('LOGIN')} action={loginAction} />;
 }

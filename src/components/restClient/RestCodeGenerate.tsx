@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useTranslations } from 'next-intl';
 
 interface RestCodeGenerateProps {
   method: string;
@@ -29,18 +30,20 @@ function RestCodeGenerate({
   const [client, setClient] = useState(LANGUAGES[0].client || undefined);
   const [code, setCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations('REST_PAGE');
+  const tLang = useTranslations('LOCALE_SWITCHER');
 
   useEffect(() => {
     async function loadSnippet() {
       if (!method || !url) {
         setCode(null);
-        setError('Not enough details to generate code.');
+        setError(t('CODE_SNIPPET_ERROR'));
         return;
       }
       const replacedUrl = replaceVariables(url);
       if (!/^https?:\/\//i.test(replacedUrl)) {
         setCode(null);
-        setError('URL must start with "http://" or "https://".');
+        setError(t('CODE_SNIPPET_ERROR_URL'));
         return;
       }
 
@@ -57,13 +60,13 @@ function RestCodeGenerate({
 
         setCode(snippet);
       } catch {
-        setError('Can not generate code.');
+        setError(t('CODE_SNIPPET_ERROR_CODE'));
         setCode(null);
       }
     }
 
     loadSnippet();
-  }, [method, url, headers, body, language, client]);
+  }, [method, url, headers, body, language, client, t]);
 
   return (
     <div className="max-w-4xl mx-auto p-4 border border-gray-200 rounded shadow-xl mt-4">
@@ -79,7 +82,7 @@ function RestCodeGenerate({
           }}
         >
           <SelectTrigger className="w-[220px]">
-            <SelectValue placeholder="Select language" />
+            <SelectValue placeholder={tLang('SELECTOR_TITLE')} />
           </SelectTrigger>
           <SelectContent>
             {LANGUAGES.map((lang) => (
@@ -89,7 +92,7 @@ function RestCodeGenerate({
             ))}
           </SelectContent>
         </Select>
-        <h3 className="text-lg font-semibold">Generated code</h3>
+        <h3 className="text-lg font-semibold">{t('GENERATE_CODE')}</h3>
       </div>
 
       {error && (

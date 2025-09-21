@@ -11,6 +11,8 @@ import { useTranslations } from 'next-intl';
 
 function Variables() {
   const t = useTranslations('VARIABLE_PAGE');
+  const tGeneral = useTranslations('GENERAL');
+
   const { register, handleSubmit, control, reset } = useForm<VariableForm>({
     defaultValues: {
       variables: [],
@@ -44,8 +46,8 @@ function Variables() {
     >
       <div className="space-y-2 mt-4 border border-gray-200 rounded p-4 shadow-xl">
         <div className="flex flex-wrap items-center justify-between border-b border-gray-200 pb-2">
-          <h1 className="text-3xl font-semibold">{t('TITLE')}</h1>
-          <Button type="submit">{t('SAVE_BTN')}</Button>
+          <h1 className="text-3xl font-semibold">{tGeneral('VARIABLES')}</h1>
+          <Button type="submit">{tGeneral('SAVE_BTN')}</Button>
         </div>
 
         {fields.map((field, index) => (

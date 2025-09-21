@@ -10,9 +10,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { getStatusColor } from '@/utils/restTransform';
-import { getMethodColor } from '@/utils/colors';
+import { getMethodColor, getStatusColor } from '@/utils/colors';
 import { useTranslations } from 'next-intl';
+import clsx from 'clsx';
 
 type ResponseRest = RequestRest & { id: string };
 
@@ -49,9 +49,10 @@ function HistoryAnalytics({ data }: HistoryAnalyticsProps) {
             >
               <TableCell className="px-3 py-2 text-xs font-semibold">
                 <span
-                  className={`px-2 py-0.5 rounded border ${getMethodColor(
-                    req.request_method
-                  )}`}
+                  className={clsx(
+                    'px-2 py-0.5 rounded border',
+                    getMethodColor(req.request_method)
+                  )}
                 >
                   {req.request_method}
                 </span>
@@ -68,9 +69,10 @@ function HistoryAnalytics({ data }: HistoryAnalyticsProps) {
 
               <TableCell className="px-3 py-2">
                 <span
-                  className={`px-2 py-0.5 rounded border ${getStatusColor(
-                    req.response_status
-                  )}`}
+                  className={clsx(
+                    'px-2 py-0.5 rounded border',
+                    getStatusColor(req.response_status)
+                  )}
                 >
                   {req.response_status ?? '-'}
                 </span>

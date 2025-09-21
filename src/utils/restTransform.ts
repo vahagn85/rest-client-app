@@ -41,13 +41,72 @@ export function createRouteFromData(data: RestForm) {
   return route;
 }
 
-export function getStatusColor(status: number) {
-  if (status >= 200 && status < 300)
-    return 'bg-green-100 text-green-700 border-green-300';
-  if (status >= 300 && status < 400)
-    return 'bg-blue-100 text-blue-700 border-blue-300';
-  if (status >= 400 && status < 500)
-    return 'bg-yellow-100 text-yellow-700 border-yellow-300';
-  if (status >= 500) return 'bg-red-100 text-red-700 border-red-300';
-  return 'bg-gray-100 text-gray-700 border-gray-300';
+export function decodeFromBase64(value: string): string {
+  try {
+    const decodedURIComponent = decodeURIComponent(value);
+    const decodedBase64 = atob(decodedURIComponent);
+    return decodeURIComponent(decodedBase64);
+  } catch {
+    return value;
+  }
+}
+
+export function decodeHeaders(query: string): HeaderField[] {
+  const headers: HeaderField[] = [];
+  const params = new URLSearchParams(query);
+  params.forEach((value, key) => {
+    headers.push({ key, value: decodeURIComponent(value) });
+  });
+  return headers;
+}
+
+export function parseRouteToData(
+  method: string,
+  encodedUrl: string,
+  encodedBody?: string | null,
+  query?: string | null
+): RestForm {
+  const url = encodedUrl ? decodeFromBase64(encodedUrl) : '';
+  let body: string = '';
+
+  if (encodedBody) {
+    const bodyStr = decodeFromBase64(encodedBody);
+    try {
+      body = JSON.parse(bodyStr);
+    } catch {
+      body = bodyStr;
+    }
+  }
+
+  const headers = query ? decodeHeaders(query) : [];
+
+  return {
+    method: method || 'GET',
+    url,
+    body,
+    headers,
+  };
+}
+
+export function replaceData(data: RestForm) {
+  const { method, url, body, headers = [] } = data;
+  const replaceUrl = replaceVariables(url);
+
+  const replaceBody = body ? replaceVariables(JSON.stringify(body)) : undefined;
+  const replaceHeaders = headers.map(({ key, value }) => ({
+    key: replaceVariables(key),
+    value: replaceVariables(value),
+  }));
+
+  return {
+    method,
+    url: replaceUrl,
+    body: replaceBody ? JSON.parse(replaceBody) : undefined,
+    headers: replaceHeaders,
+  };
+}
+
+export function hasProtocol(url: string): boolean {
+  const replacedUrl = replaceVariables(url);
+  return !/^https?:\/\//i.test(replacedUrl);
 }

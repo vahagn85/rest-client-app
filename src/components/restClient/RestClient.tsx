@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { RestForm } from '@/types/rest.type';
@@ -7,49 +8,66 @@ import RestBar from './RestBar';
 import RestHeaders from './RestHeaders';
 import { saveData } from '@/app/(protected)/rest/action';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import RestCodeGenerate from './RestCodeGenerate';
 import RestBody from './RestBody';
 import RestResponse from './RestResponse';
-import { useState } from 'react';
+import {
+  createRouteFromData,
+  hasProtocol,
+  parseRouteToData,
+  replaceData,
+} from '@/utils/restTransform';
 
 function RestClient() {
   const t = useTranslations('REST_PAGE');
+  const tGeneral = useTranslations('GENERAL');
   const [response, setResponse] = useState<{
     status: number | null;
     body: string;
     isJson: boolean;
   }>({ status: null, body: '', isJson: false });
 
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const [method, encodedUrl, encodedBody] = params.rest || [];
+
+  const initialValues = useMemo(
+    () =>
+      parseRouteToData(
+        method,
+        encodedUrl,
+        encodedBody,
+        searchParams.toString()
+      ),
+    [method, encodedUrl, encodedBody, searchParams]
+  );
+
   const { register, handleSubmit, control, watch, setValue } =
     useForm<RestForm>({
-      defaultValues: {
-        url: '',
-        method: 'GET',
-        body: '',
-        headers: [],
-      },
+      defaultValues: initialValues,
     });
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'headers',
   });
-  const route = useRouter();
 
   const onSubmit = async (data: RestForm) => {
     try {
-      if (!data.url) {
+      if (!data.url || hasProtocol(data.url)) {
         toast.error(t('ALERT_URL'));
         return;
       }
 
-      const result = await saveData(data);
+      const route = createRouteFromData(data);
+      const replacedData = replaceData(data);
+      const result = await saveData(replacedData, route);
 
       if (result.success) {
         toast.success(`${t('ALERT_SUCCESS')} (${result.data?.route})`);
-        route.push(`/rest/${result.data?.route}`);
+        window.history.replaceState(null, '', `/rest/${route}`);
       } else {
         toast.error(`${t('ALERT_ERROR')} (${result.error})`);
       }
@@ -63,7 +81,9 @@ function RestClient() {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold text-center mb-4">{t('TITLE')}</h1>
+      <h1 className="text-3xl font-semibold text-center mb-4">
+        {tGeneral('REST_CLIENT')}
+      </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 max-w-4xl mx-auto"

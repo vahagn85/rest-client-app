@@ -1,28 +1,26 @@
 import Link from 'next/link';
-import courseLogo from '@/svg/course-logo.svg';
-import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { CourseLogo } from './icons/CourseLogo';
 
 export default function Footer() {
-  const t = useTranslations('IMAGES_ALT');
-
   return (
-    <footer className="py-4 flex justify-between">
+    <footer className="py-4 flex justify-between border-t border-gray-300">
       <Link
-        href="https://github.com/vahagn85/rest-client-app "
+        href="https://github.com/vahagn85"
         className="underline underline-offset-2"
+        target="_blank"
       >
         Github
       </Link>
 
       <span>{new Date().getFullYear()}</span>
-
-      <Image
-        src={courseLogo.src}
-        width={20}
-        height={20}
-        alt={t('COURSE_LOGO')}
-      />
+      <Link
+        href="https://rs.school/courses/reactjs"
+        className="underline underline-offset-2 w-6"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <CourseLogo />
+      </Link>
     </footer>
   );
 }
