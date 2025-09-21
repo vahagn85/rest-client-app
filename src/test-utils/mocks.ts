@@ -34,6 +34,7 @@ vi.mock('next-intl/server', () => ({
       return key;
     })
   ),
+  getLocale: vi.fn().mockResolvedValue('en'),
 }));
 
 vi.mock('next-intl', async (importOriginal) => {
