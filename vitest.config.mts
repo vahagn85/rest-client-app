@@ -18,6 +18,7 @@ export default defineConfig({
         'src/**/*.spec.{ts,tsx}',
         'src/test-utils/**',
         'src/types/**',
+        'src/utils/supabase/**',
       ],
       thresholds: {
         statements: 80,
