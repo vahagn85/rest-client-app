@@ -40,23 +40,15 @@ export default function AuthForm({ title, action }: AuthFormProps) {
   const [errorMsg, setErrorMsg] = useState('');
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const formData = new FormData();
-      formData.append('email', values.email);
-      formData.append('password', values.password);
+    const formData = new FormData();
+    formData.append('email', values.email);
+    formData.append('password', values.password);
 
-      const result = await action(formData);
+    const result = await action(formData);
 
-      if (result?.error) {
-        toast.error(result.message);
-        setErrorMsg(result.message);
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        setErrorMsg(err.message);
-      } else {
-        setErrorMsg(t('ERROR_UNEXPECTED'));
-      }
+    if (result?.error) {
+      toast.error(result.message);
+      setErrorMsg(result.message);
     }
   };
 
